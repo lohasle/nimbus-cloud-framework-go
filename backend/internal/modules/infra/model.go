@@ -42,17 +42,18 @@ type FileRecord struct {
 }
 
 type APIAccessLog struct {
-	ID        uint64    `gorm:"primaryKey" json:"id"`
-	TenantID  uint64    `gorm:"index;not null" json:"tenantId"`
-	TraceID   string    `gorm:"size:64;index" json:"traceId"`
-	UserID    uint64    `gorm:"index;not null;default:0" json:"userId"`
-	Method    string    `gorm:"size:16;not null" json:"requestMethod"`
-	Path      string    `gorm:"size:512;not null" json:"requestUrl"`
-	Status    int       `gorm:"not null" json:"responseCode"`
-	Duration  int64     `gorm:"not null;default:0" json:"duration"`
-	IP        string    `gorm:"size:64" json:"userIp"`
-	UserAgent string    `gorm:"size:512" json:"userAgent"`
-	CreatedAt time.Time `json:"createTime"`
+	ID              uint64    `gorm:"primaryKey" json:"id"`
+	TenantID        uint64    `gorm:"index;not null" json:"tenantId"`
+	TraceID         string    `gorm:"size:64;index" json:"traceId"`
+	ApplicationName string    `gorm:"size:64;index" json:"applicationName"`
+	UserID          uint64    `gorm:"index;not null;default:0" json:"userId"`
+	Method          string    `gorm:"size:16;not null" json:"requestMethod"`
+	Path            string    `gorm:"size:512;not null" json:"requestUrl"`
+	Status          int       `gorm:"not null" json:"responseCode"`
+	Duration        int64     `gorm:"not null;default:0" json:"duration"`
+	IP              string    `gorm:"size:64" json:"userIp"`
+	UserAgent       string    `gorm:"size:512" json:"userAgent"`
+	CreatedAt       time.Time `json:"createTime"`
 }
 
 type ConfigSaveRequest struct {

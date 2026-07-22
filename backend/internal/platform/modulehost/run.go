@@ -30,10 +30,10 @@ func Run(name string, port uint64) {
 
 // New creates the common HTTP shell for a bounded context. Modules add their
 // own authenticated routes before passing the engine to Serve.
-func New(name string) *gin.Engine {
+func New(name string, recorders ...middleware.RequestLogRecorder) *gin.Engine {
 	r := gin.New()
 	_ = r.SetTrustedProxies([]string{"127.0.0.1", "::1"})
-	r.Use(gin.Recovery(), middleware.CORS(), middleware.RequestContext())
+	r.Use(gin.Recovery(), middleware.CORS(), middleware.RequestContext(recorders...))
 	r.GET("/health", Health(name))
 	r.GET("/admin-api/"+name+"/health", Health(name))
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))

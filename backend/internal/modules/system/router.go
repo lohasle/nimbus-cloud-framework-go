@@ -4,17 +4,19 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/lohasle/nimbus-cloud-framework-go/internal/platform/accesslog"
 	"github.com/lohasle/nimbus-cloud-framework-go/internal/platform/httpx"
 	"github.com/lohasle/nimbus-cloud-framework-go/internal/platform/middleware"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
+	"gorm.io/gorm"
 )
 
-func New(handler *Handler) *gin.Engine {
+func New(handler *Handler, db *gorm.DB) *gin.Engine {
 	r := gin.New()
 	_ = r.SetTrustedProxies([]string{"127.0.0.1", "::1"})
-	r.Use(gin.Recovery(), middleware.CORS(), middleware.RequestContext())
-	r.GET("/health", health("nimbus-server"))
+	r.Use(gin.Recovery(), middleware.CORS(), middleware.RequestContext(accesslog.Recorder(db, "nimbus-system")))
+	r.GET("/health", health("nimbus-system"))
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	admin := r.Group("/admin-api")
@@ -28,6 +30,7 @@ func New(handler *Handler) *gin.Engine {
 	admin.POST("/system/auth/logout", handler.Auth(), handler.Logout)
 	systemAdmin := admin.Group("/system", handler.Auth())
 	systemAdmin.GET("/user/page", handler.UserPage)
+	systemAdmin.GET("/user/list", handler.UserList)
 	systemAdmin.GET("/user/simple-list", handler.SimpleUsers)
 	systemAdmin.GET("/user/get-simple", handler.SimpleUser)
 	systemAdmin.GET("/user/list-by-nickname", handler.UsersByNickname)
@@ -38,8 +41,16 @@ func New(handler *Handler) *gin.Engine {
 	systemAdmin.DELETE("/user/delete-list", handler.UserDeleteList)
 	systemAdmin.PUT("/user/update-password", handler.UserPassword)
 	systemAdmin.PUT("/user/update-status", handler.UserStatus)
+	systemAdmin.GET("/user/export-excel", handler.UserExport)
+	systemAdmin.GET("/user/get-import-template", handler.UserImportTemplate)
+	systemAdmin.POST("/user/import", handler.UserImport)
+	systemAdmin.GET("/role/simple-list", handler.SimpleRoles)
+	systemAdmin.GET("/permission/list-user-roles", handler.UserRoleList)
+	systemAdmin.POST("/permission/assign-user-role", handler.AssignUserRole)
 	systemAdmin.GET("/dept/simple-list", handler.SimpleDepartments)
 	systemAdmin.GET("/post/simple-list", handler.SimplePosts)
+	systemAdmin.GET("/area/tree", handler.AreaTree)
+	systemAdmin.GET("/area/get-by-ip", handler.AreaByIP)
 	for _, module := range []string{"system", "infra", "member", "pay", "application", "im", "app"} {
 		admin.GET("/"+module+"/health", health(module))
 	}

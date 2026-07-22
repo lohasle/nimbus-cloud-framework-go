@@ -6,6 +6,7 @@ import (
 
 	_ "github.com/lohasle/nimbus-cloud-framework-go/docs"
 	"github.com/lohasle/nimbus-cloud-framework-go/internal/modules/pay"
+	"github.com/lohasle/nimbus-cloud-framework-go/internal/platform/accesslog"
 	"github.com/lohasle/nimbus-cloud-framework-go/internal/platform/config"
 	"github.com/lohasle/nimbus-cloud-framework-go/internal/platform/database"
 	"github.com/lohasle/nimbus-cloud-framework-go/internal/platform/middleware"
@@ -32,7 +33,7 @@ func main() {
 		slog.Error("pay database initialization failed", "error", err)
 		os.Exit(1)
 	}
-	r := modulehost.New(pay.ModuleName)
+	r := modulehost.New(pay.ModuleName, accesslog.Recorder(db, "nimbus-pay"))
 	pay.Register(r.Group("/admin-api"), db, middleware.Auth(cfg))
 	modulehost.Serve(pay.ModuleName, 58085, r)
 }

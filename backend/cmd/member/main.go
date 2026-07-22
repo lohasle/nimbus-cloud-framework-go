@@ -6,6 +6,7 @@ import (
 
 	_ "github.com/lohasle/nimbus-cloud-framework-go/docs"
 	"github.com/lohasle/nimbus-cloud-framework-go/internal/modules/member"
+	"github.com/lohasle/nimbus-cloud-framework-go/internal/platform/accesslog"
 	"github.com/lohasle/nimbus-cloud-framework-go/internal/platform/config"
 	"github.com/lohasle/nimbus-cloud-framework-go/internal/platform/database"
 	"github.com/lohasle/nimbus-cloud-framework-go/internal/platform/middleware"
@@ -32,7 +33,7 @@ func main() {
 		slog.Error("member database initialization failed", "error", err)
 		os.Exit(1)
 	}
-	r := modulehost.New(member.ModuleName)
+	r := modulehost.New(member.ModuleName, accesslog.Recorder(db, "nimbus-member"))
 	member.Register(r.Group("/admin-api"), db, middleware.Auth(cfg))
 	modulehost.Serve(member.ModuleName, 58087, r)
 }

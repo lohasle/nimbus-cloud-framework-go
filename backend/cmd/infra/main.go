@@ -6,6 +6,7 @@ import (
 
 	_ "github.com/lohasle/nimbus-cloud-framework-go/docs"
 	"github.com/lohasle/nimbus-cloud-framework-go/internal/modules/infra"
+	"github.com/lohasle/nimbus-cloud-framework-go/internal/platform/accesslog"
 	"github.com/lohasle/nimbus-cloud-framework-go/internal/platform/config"
 	"github.com/lohasle/nimbus-cloud-framework-go/internal/platform/database"
 	"github.com/lohasle/nimbus-cloud-framework-go/internal/platform/middleware"
@@ -32,7 +33,7 @@ func main() {
 		slog.Error("infra database initialization failed", "error", err)
 		os.Exit(1)
 	}
-	r := modulehost.New(infra.ModuleName)
+	r := modulehost.New(infra.ModuleName, accesslog.Recorder(db, "nimbus-infra"))
 	infra.Register(r.Group("/admin-api"), db, middleware.Auth(cfg))
 	modulehost.Serve(infra.ModuleName, 58082, r)
 }

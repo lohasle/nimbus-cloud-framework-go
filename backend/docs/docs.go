@@ -235,6 +235,30 @@ const docTemplate = `{
                 }
             }
         },
+        "/infra/api-access-log/export-excel": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/octet-stream"
+                ],
+                "tags": [
+                    "Infra Logging"
+                ],
+                "summary": "Export API access logs",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "file"
+                        }
+                    }
+                }
+            }
+        },
         "/infra/api-access-log/page": {
             "get": {
                 "security": [
@@ -283,7 +307,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/infra.ConfigSaveRequest"
+                            "$ref": "#/definitions/internal_modules_infra.ConfigSaveRequest"
                         }
                     }
                 ],
@@ -340,6 +364,30 @@ const docTemplate = `{
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/github_com_lohasle_nimbus-cloud-framework-go_internal_platform_httpx.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/infra/config/export-excel": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/octet-stream"
+                ],
+                "tags": [
+                    "Infra Config"
+                ],
+                "summary": "Export system parameters",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "file"
                         }
                     }
                 }
@@ -445,7 +493,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/infra.ConfigSaveRequest"
+                            "$ref": "#/definitions/internal_modules_infra.ConfigSaveRequest"
                         }
                     }
                 ],
@@ -483,7 +531,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/infra.FileConfigSaveRequest"
+                            "$ref": "#/definitions/internal_modules_infra.FileConfigSaveRequest"
                         }
                     }
                 ],
@@ -641,7 +689,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/infra.FileConfigSaveRequest"
+                            "$ref": "#/definitions/internal_modules_infra.FileConfigSaveRequest"
                         }
                     }
                 ],
@@ -689,6 +737,78 @@ const docTemplate = `{
                     "Health"
                 ],
                 "summary": "Service health",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_lohasle_nimbus-cloud-framework-go_internal_platform_httpx.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/member/address/list": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Member Detail"
+                ],
+                "summary": "List a member's addresses",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_lohasle_nimbus-cloud-framework-go_internal_platform_httpx.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/member/experience-record/get": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Member Detail"
+                ],
+                "summary": "Get a member experience record",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_lohasle_nimbus-cloud-framework-go_internal_platform_httpx.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/member/experience-record/page": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Member Detail"
+                ],
+                "summary": "Page member experience records",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -775,6 +895,30 @@ const docTemplate = `{
                     "Member Group"
                 ],
                 "summary": "Get a member group",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_lohasle_nimbus-cloud-framework-go_internal_platform_httpx.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/member/group/list-all-simple": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Member Group"
+                ],
+                "summary": "List enabled member groups",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -1001,6 +1145,30 @@ const docTemplate = `{
                 }
             }
         },
+        "/member/level/list-all-simple": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Member Level"
+                ],
+                "summary": "List enabled member levels",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_lohasle_nimbus-cloud-framework-go_internal_platform_httpx.Response"
+                        }
+                    }
+                }
+            }
+        },
         "/member/level/page": {
             "get": {
                 "security": [
@@ -1087,6 +1255,54 @@ const docTemplate = `{
                 }
             }
         },
+        "/member/point/record/page": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Member Detail"
+                ],
+                "summary": "Page member point records",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_lohasle_nimbus-cloud-framework-go_internal_platform_httpx.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/member/sign-in/record/page": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Member Detail"
+                ],
+                "summary": "Page member sign-in records",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_lohasle_nimbus-cloud-framework-go_internal_platform_httpx.Response"
+                        }
+                    }
+                }
+            }
+        },
         "/member/tag/create": {
             "post": {
                 "security": [
@@ -1163,6 +1379,30 @@ const docTemplate = `{
                     "Member Tag"
                 ],
                 "summary": "Get a member tag",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_lohasle_nimbus-cloud-framework-go_internal_platform_httpx.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/member/tag/list-all-simple": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Member Tag"
+                ],
+                "summary": "List enabled member tags",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -1773,6 +2013,30 @@ const docTemplate = `{
                 }
             }
         },
+        "/pay/channel/export-excel": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/octet-stream"
+                ],
+                "tags": [
+                    "Pay Channel"
+                ],
+                "summary": "Export payment channels",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "file"
+                        }
+                    }
+                }
+            }
+        },
         "/pay/channel/get": {
             "get": {
                 "security": [
@@ -1811,6 +2075,63 @@ const docTemplate = `{
                     "Pay Channel"
                 ],
                 "summary": "List enabled channel codes for an application",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_lohasle_nimbus-cloud-framework-go_internal_platform_httpx.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/pay/channel/get-enable-code-list": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Pay Channel"
+                ],
+                "summary": "List enabled channel codes for an application",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_lohasle_nimbus-cloud-framework-go_internal_platform_httpx.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/pay/channel/list": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Pay Channel"
+                ],
+                "summary": "List payment channels for an application",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Payment application ID",
+                        "name": "appId",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -1941,6 +2262,30 @@ const docTemplate = `{
                 }
             }
         },
+        "/pay/order/export-excel": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/octet-stream"
+                ],
+                "tags": [
+                    "Pay Order"
+                ],
+                "summary": "Export payment orders",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "file"
+                        }
+                    }
+                }
+            }
+        },
         "/pay/order/get": {
             "get": {
                 "security": [
@@ -2013,6 +2358,44 @@ const docTemplate = `{
                 }
             }
         },
+        "/pay/order/submit": {
+            "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Pay Order"
+                ],
+                "summary": "Create a pending payment order",
+                "parameters": [
+                    {
+                        "description": "Payment order",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/pay.OrderCreateRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_lohasle_nimbus-cloud-framework-go_internal_platform_httpx.Response"
+                        }
+                    }
+                }
+            }
+        },
         "/pay/refund/create": {
             "post": {
                 "security": [
@@ -2075,6 +2458,30 @@ const docTemplate = `{
                 }
             }
         },
+        "/pay/refund/export-excel": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/octet-stream"
+                ],
+                "tags": [
+                    "Pay Refund"
+                ],
+                "summary": "Export payment refunds",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "file"
+                        }
+                    }
+                }
+            }
+        },
         "/pay/refund/get": {
             "get": {
                 "security": [
@@ -2113,6 +2520,221 @@ const docTemplate = `{
                     "Pay Refund"
                 ],
                 "summary": "Page payment refunds",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_lohasle_nimbus-cloud-framework-go_internal_platform_httpx.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/pay/refund/update": {
+            "put": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Pay Refund"
+                ],
+                "summary": "Update a pending refund record",
+                "parameters": [
+                    {
+                        "description": "Refund update",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/pay.RefundUpdateRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_lohasle_nimbus-cloud-framework-go_internal_platform_httpx.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/pay/wallet-transaction/page": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Pay Wallet"
+                ],
+                "summary": "Page wallet transactions",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_lohasle_nimbus-cloud-framework-go_internal_platform_httpx.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/pay/wallet/get": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Pay Wallet"
+                ],
+                "summary": "Get or initialize a member wallet",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Member user ID",
+                        "name": "userId",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_lohasle_nimbus-cloud-framework-go_internal_platform_httpx.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/pay/wallet/page": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Pay Wallet"
+                ],
+                "summary": "Page member wallets",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_lohasle_nimbus-cloud-framework-go_internal_platform_httpx.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/pay/wallet/update-balance": {
+            "put": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Pay Wallet"
+                ],
+                "summary": "Adjust a member wallet balance",
+                "parameters": [
+                    {
+                        "description": "Balance adjustment in cents",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/pay.WalletBalanceUpdateRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_lohasle_nimbus-cloud-framework-go_internal_platform_httpx.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/system/area/get-by-ip": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Returns 内网地址 for loopback/private IPs. Public IP geolocation is intentionally not sent to an external service.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "System Area"
+                ],
+                "summary": "Resolve a local IP description",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "IP address",
+                        "name": "ip",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_lohasle_nimbus-cloud-framework-go_internal_platform_httpx.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/system/area/tree": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "System Area"
+                ],
+                "summary": "Get the China administrative area tree",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -2343,6 +2965,77 @@ const docTemplate = `{
                 }
             }
         },
+        "/system/permission/assign-user-role": {
+            "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "System Permission"
+                ],
+                "summary": "Assign roles to an operations-console user",
+                "parameters": [
+                    {
+                        "description": "User role assignment",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/internal_modules_system.AssignUserRoleRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_lohasle_nimbus-cloud-framework-go_internal_platform_httpx.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/system/permission/list-user-roles": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "System Permission"
+                ],
+                "summary": "List role IDs assigned to a user",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "User ID",
+                        "name": "userId",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_lohasle_nimbus-cloud-framework-go_internal_platform_httpx.Response"
+                        }
+                    }
+                }
+            }
+        },
         "/system/post/simple-list": {
             "get": {
                 "security": [
@@ -2357,6 +3050,30 @@ const docTemplate = `{
                     "System Organization"
                 ],
                 "summary": "List enabled posts",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_lohasle_nimbus-cloud-framework-go_internal_platform_httpx.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/system/role/simple-list": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "System Role"
+                ],
+                "summary": "List enabled roles",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -2511,6 +3228,30 @@ const docTemplate = `{
                 }
             }
         },
+        "/system/user/export-excel": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/octet-stream"
+                ],
+                "tags": [
+                    "System User"
+                ],
+                "summary": "Export operations-console users",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "file"
+                        }
+                    }
+                }
+            }
+        },
         "/system/user/get": {
             "get": {
                 "security": [
@@ -2535,6 +3276,30 @@ const docTemplate = `{
                 }
             }
         },
+        "/system/user/get-import-template": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/octet-stream"
+                ],
+                "tags": [
+                    "System User"
+                ],
+                "summary": "Download user import template",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "file"
+                        }
+                    }
+                }
+            }
+        },
         "/system/user/get-simple": {
             "get": {
                 "security": [
@@ -2549,6 +3314,81 @@ const docTemplate = `{
                     "System User"
                 ],
                 "summary": "Get a compact user card",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_lohasle_nimbus-cloud-framework-go_internal_platform_httpx.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/system/user/import": {
+            "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "System User"
+                ],
+                "summary": "Import operations-console users from XLSX",
+                "parameters": [
+                    {
+                        "type": "file",
+                        "description": "XLSX file",
+                        "name": "file",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "Update existing users",
+                        "name": "updateSupport",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_lohasle_nimbus-cloud-framework-go_internal_platform_httpx.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/system/user/list": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "System User"
+                ],
+                "summary": "List operations-console users by IDs",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Comma-separated user IDs",
+                        "name": "ids",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -2739,7 +3579,7 @@ const docTemplate = `{
                 }
             }
         },
-        "infra.ConfigSaveRequest": {
+        "internal_modules_infra.ConfigSaveRequest": {
             "type": "object",
             "required": [
                 "category",
@@ -2773,7 +3613,7 @@ const docTemplate = `{
                 }
             }
         },
-        "infra.FileConfigSaveRequest": {
+        "internal_modules_infra.FileConfigSaveRequest": {
             "type": "object",
             "required": [
                 "name"
@@ -2795,6 +3635,23 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "storage": {
+                    "type": "integer"
+                }
+            }
+        },
+        "internal_modules_system.AssignUserRoleRequest": {
+            "type": "object",
+            "required": [
+                "userId"
+            ],
+            "properties": {
+                "roleIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "userId": {
                     "type": "integer"
                 }
             }
@@ -2942,7 +3799,16 @@ const docTemplate = `{
                 "nickname"
             ],
             "properties": {
+                "areaId": {
+                    "type": "integer"
+                },
                 "avatar": {
+                    "type": "string"
+                },
+                "birthday": {
+                    "type": "integer"
+                },
+                "email": {
                     "type": "string"
                 },
                 "groupId": {
@@ -2954,7 +3820,13 @@ const docTemplate = `{
                 "levelId": {
                     "type": "integer"
                 },
+                "mark": {
+                    "type": "string"
+                },
                 "mobile": {
+                    "type": "string"
+                },
+                "name": {
                     "type": "string"
                 },
                 "nickname": {
@@ -2992,11 +3864,20 @@ const docTemplate = `{
                 "name": {
                     "type": "string"
                 },
+                "orderNotifyUrl": {
+                    "type": "string"
+                },
+                "refundNotifyUrl": {
+                    "type": "string"
+                },
                 "remark": {
                     "type": "string"
                 },
                 "status": {
                     "type": "integer"
+                },
+                "transferNotifyUrl": {
+                    "type": "string"
                 }
             }
         },
@@ -3077,6 +3958,38 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "refundPrice": {
+                    "type": "integer"
+                }
+            }
+        },
+        "pay.RefundUpdateRequest": {
+            "type": "object",
+            "required": [
+                "id"
+            ],
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "reason": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "integer"
+                }
+            }
+        },
+        "pay.WalletBalanceUpdateRequest": {
+            "type": "object",
+            "required": [
+                "balance",
+                "userId"
+            ],
+            "properties": {
+                "balance": {
+                    "type": "integer"
+                },
+                "userId": {
                     "type": "integer"
                 }
             }

@@ -35,7 +35,7 @@ func main() {
 	}
 	defer registry.Deregister("nimbus-system", 58081)
 	service := system.NewService(db, cfg)
-	if err = system.New(system.NewHandler(service)).Run(cfg.HTTPAddr); err != nil {
+	if err = system.New(system.NewHandler(service), db).Run(cfg.HTTPAddr); err != nil {
 		slog.Error("system service stopped", "error", err)
 		os.Exit(1)
 	}
