@@ -315,7 +315,7 @@ func (h *Handler) AccessLogPage(c *gin.Context) {
 	for _, row := range rows {
 		applicationName := row.ApplicationName
 		if applicationName == "" {
-			applicationName = "nimbus-system"
+			applicationName = "nimbus-admin-api"
 		}
 		resultCode := 0
 		resultMessage := ""

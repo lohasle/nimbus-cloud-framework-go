@@ -2,7 +2,7 @@
 
 ## 状态
 
-- 当前：进行中
+- 当前：已完成
 - 源工程：`nimbus-cloud-framework/backend`
 - 目标工程：`nimbus-cloud-framework-go/backend`
 - 数据库基线：MySQL 8.4
@@ -39,9 +39,9 @@ nimbus-cloud-framework-go/
 ## 当前已验证闭环
 
 - Gateway、System、Infra、Member、Pay、Business 六个进程独立启动并通过健康检查。
-- System 已实现租户识别、登录/JWT、权限菜单、字典、通知入口、运营用户 CRUD、部门/岗位简表。
-- Infra 已实现参数配置、文件配置及 API 访问日志；Member 已实现会员、等级、分组、标签与积分；Pay 已实现应用、渠道、订单与退款核心管理闭环。
+- System 已实现运营用户、RBAC、菜单、组织、租户、字典、审计日志、OAuth2、通知、邮件和短信管理。
+- Infra 已实现参数、文件、访问/错误日志、数据源、定时任务、任务日志及 Redis 监控；Member 与 Pay 保持既有管理闭环。
 - Application、IM、App 仅由 Business 进程提供 Health，不建立业务表。
 - Swagger 已生成 101 条路径；Go 全量测试/编译和前端类型检查/生产构建通过。
 
-未在菜单中开放的 Java 扩展能力（定时任务、对象存储真实上传、第三方支付适配、钱包/转账等）留作后续按需迁移，不提供伪实现。
+未在当前菜单开放的 Java 扩展能力（代码生成、第三方支付真实适配、钱包/转账扩展等）留作后续按需迁移，不提供伪实现。

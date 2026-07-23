@@ -1,5 +1,6 @@
 # Nimbus Cloud Framework Go Agent Guide
 
+- 修改前按 `README.md`、`docs/agent-context.md`、`docs/architecture.md`、相关 SPEC、`.rule/` 的顺序读取上下文。
 - Go 版本以 `backend/go.mod` 为准，使用稳定版，不使用预发布工具链。
 - 默认数据库必须保持 MySQL 8.4；其他数据库只能作为显式可选适配。
 - 未经 SPEC 确认，不新增业务实体。扩展模块默认只保留健康接口。
@@ -7,3 +8,4 @@
 - 微服务必须注册到 Nacos，同时保留显式的本地静态回退；禁止在业务代码中硬编码跨服务调用地址。
 - 后端代码必须位于 `backend/`，并按 `internal/modules/<module>` 划分；公共能力位于 `internal/platform`。
 - 提交前至少在 `backend/` 执行 `go test ./...`、`make build`，并执行前端生产构建。
+- System 与 Infra 的公共实现可以参考 `muse-app-go` 和 `nimbus-framework-go`，但禁止覆盖 Cloud 的服务拆分、Nacos、网关或静态回退。

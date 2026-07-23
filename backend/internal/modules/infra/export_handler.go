@@ -41,9 +41,9 @@ func (h *Handler) AccessLogExport(c *gin.Context) {
 	book := excelize.NewFile()
 	sheet := "API访问日志"
 	book.SetSheetName("Sheet1", sheet)
-	writeRow(book, sheet, 1, []any{"编号", "Trace ID", "应用名", "用户编号", "请求方法", "请求地址", "响应状态", "耗时(ms)", "IP", "创建时间"})
+	writeRow(book, sheet, 1, []any{"编号", "Trace ID", "用户编号", "请求方法", "请求地址", "响应状态", "耗时(ms)", "IP", "创建时间"})
 	for index, row := range rows {
-		writeRow(book, sheet, index+2, []any{row.ID, row.TraceID, row.ApplicationName, row.UserID, row.Method, row.Path, row.Status, row.Duration, row.IP, row.CreatedAt.Format(time.DateTime)})
+		writeRow(book, sheet, index+2, []any{row.ID, row.TraceID, row.UserID, row.Method, row.Path, row.Status, row.Duration, row.IP, row.CreatedAt.Format(time.DateTime)})
 	}
 	excelx.Write(c, book, "API访问日志.xlsx")
 }
