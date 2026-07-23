@@ -9,13 +9,13 @@ Nimbus Framework 的 Go 1.26 微服务版，以 Java Cloud 底座为功能迁移
 | 进程 | 端口 | 职责 |
 | --- | ---: | --- |
 | `nimbus-gateway` | 58080 | 统一入口、Trace ID、动态服务解析与反向代理 |
-| `nimbus-system` | 58081 | 租户、运营用户、认证与权限 |
-| `nimbus-infra` | 58082 | 参数配置、文件配置、API 访问日志 |
+| `nimbus-system` | 58081 | 运营用户、RBAC、组织、租户、字典、OAuth2、通知、邮件和短信 |
+| `nimbus-infra` | 58082 | 参数、文件、访问/错误日志、数据源、定时任务和 Redis 监控 |
 | `nimbus-pay` | 58085 | 支付应用、渠道、订单与退款核心管理 |
 | `nimbus-member` | 58087 | 会员、等级、分组、标签与积分 |
 | `nimbus-business` | 58090 | application / IM / APP 聚合扩展边界（当前 health） |
 
-Nacos 负责注册发现；没有配置 Nacos 时，网关自动回退到本地静态地址，便于开发和故障恢复。默认数据库为 MySQL 8.4。
+Nacos 负责注册发现；没有配置 Nacos 时，网关自动回退到本地静态地址，便于开发和故障恢复。默认数据库为 MySQL 8.4，Redis 仅作为缓存与监控基础设施。
 
 ## 启动
 
@@ -31,3 +31,11 @@ cd ..
 默认租户 `Nimbus Framework`，账号 `admin / admin123`。生产环境必须替换 JWT 密钥和初始化口令。
 
 OpenAPI 文档由 Swagger 注释生成在 `backend/docs/`；统一入口可访问 `http://localhost:58080/swagger/index.html`。
+
+- 运营后台：`http://localhost:3000`
+- Gateway：`http://localhost:58080`
+- MySQL：`127.0.0.1:23326`
+- Redis：`127.0.0.1:27326`
+- Nacos 控制台：`http://localhost:28090`
+
+工程文档从 [docs/README.md](docs/README.md) 开始；接口冒烟执行 `./scripts/test-functional.sh`。
